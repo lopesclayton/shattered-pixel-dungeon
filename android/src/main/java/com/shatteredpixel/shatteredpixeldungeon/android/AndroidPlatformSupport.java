@@ -46,6 +46,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AndroidPlatformSupport extends PlatformSupport {
+
+	@Override
+	public boolean openURI(String uri) {
+		if (!(AndroidLauncher.instance instanceof AndroidLauncher) || uri == null || uri.isEmpty()) return false;
+		((AndroidLauncher) AndroidLauncher.instance).requestExternalUri(uri);
+		return true; // Request queued; opening requires a fresh device-credential confirmation.
+	}
 	
 	public void updateDisplaySize(){
 		AndroidLauncher.instance.setRequestedOrientation( SPDSettings.landscape() ?

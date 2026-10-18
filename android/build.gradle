@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         manifestPlaceholders = [appName:appName]
-        applicationId appPackageName
+        applicationId 'com.wigotecnologia.game.pixeldungeon'
 
         versionCode appVersionCode
         versionName appVersionName
@@ -27,10 +27,6 @@ android {
         debug {
             applicationIdSuffix ".indev"
             versionNameSuffix '-INDEV'
-            dependencies {
-                debugImplementation project(':services:updates:debugUpdates')
-                debugImplementation project(':services:news:debugNews')
-            }
         }
         release {
 
@@ -42,10 +38,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            dependencies {
-                releaseImplementation project(':services:updates:githubUpdates')
-                releaseImplementation project(':services:news:shatteredNews')
-            }
         }
     }
 
@@ -60,6 +52,12 @@ configurations { natives }
 
 dependencies {
     implementation project(':core')
+
+    debugImplementation project(':services:updates:debugUpdates')
+    debugImplementation project(':services:news:debugNews')
+    // The Wigo fork must not offer the upstream author's updates/news.
+    releaseImplementation project(':services:updates:debugUpdates')
+    releaseImplementation project(':services:news:debugNews')
 
     implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
     natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

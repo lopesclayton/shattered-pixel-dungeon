@@ -63,7 +63,7 @@ import java.util.Date;
 
 public class TitleScene extends PixelScene {
 
-	private Image title;
+	private com.watabou.noosa.Visual title;
 	private Fireball leftFB;
 	private Fireball rightFB;
 	private Image signs;
@@ -104,7 +104,11 @@ public class TitleScene extends PixelScene {
 		w -= insets.left + insets.right;
 		h -= insets.top + insets.bottom;
 
-		title = BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
+		BitmapText wigoTitle = new BitmapText("Wigo Masmorras", pixelFont);
+		wigoTitle.measure();
+		wigoTitle.scale.set(2f);
+		wigoTitle.hardlight(0xFFCC66);
+		title = wigoTitle;
 		add( title );
 
 		float topRegion = Math.max(title.height - 6, h*0.45f);
@@ -114,13 +118,8 @@ public class TitleScene extends PixelScene {
 
 		align(title);
 
-		if (landscape()){
-			leftFB = placeTorch(title.x + 30, title.y + 35);
-			rightFB = placeTorch(title.x + title.width - 30, title.y + 35);
-		} else {
-			leftFB = placeTorch(title.x + 16, title.y + 70);
-			rightFB = placeTorch(title.x + title.width - 16, title.y + 70);
-		}
+		leftFB = placeTorch(title.x - 12, title.y + title.height()/2f);
+		rightFB = placeTorch(title.x + title.width() + 12, title.y + title.height()/2f);
 
 		signs = new Image(BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
 			private float time = 0;
@@ -141,6 +140,7 @@ public class TitleScene extends PixelScene {
 		signs.x = title.x + (title.width() - signs.width())/2f;
 		signs.y = title.y;
 		add( signs );
+		signs.visible = false; // The upstream logo glow does not belong to the Wigo title.
 
 		final Chrome.Type GREY_TR = Chrome.Type.GREY_BUTTON_TR;
 		
@@ -171,7 +171,14 @@ public class TitleScene extends PixelScene {
 		btnPlay.icon(Icons.get(Icons.ENTER));
 		add(btnPlay);
 
-		btnSupport = new SupportButton(GREY_TR, Messages.get(this, "support"));
+		btnSupport = new StyledButton(GREY_TR, "Privacy / Privacidade") {
+			@Override protected void onClick() {
+				String url = "https://s3.sa-east-1.amazonaws.com/lupper.com.br/politica-privacidade-jogos.html";
+				if (!com.badlogic.gdx.Gdx.net.openURI(url)) {
+					ShatteredPixelDungeon.scene().add(new com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage(url));
+				}
+			}
+		};
 		add(btnSupport);
 
 		btnRankings = new StyledButton(GREY_TR,Messages.get(this, "rankings")){

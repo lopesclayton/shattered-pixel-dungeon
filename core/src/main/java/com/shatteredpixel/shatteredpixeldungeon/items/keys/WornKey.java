@@ -55,7 +55,8 @@ public class WornKey extends Key {
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {
-						ShatteredPixelDungeon.scene().add(new WndSupportPrompt());
+						// Preserve the save checkpoint without soliciting support for another publisher.
+						SPDSettings.supportNagged(true);
 					}
 				});
 			} catch (IOException e) {

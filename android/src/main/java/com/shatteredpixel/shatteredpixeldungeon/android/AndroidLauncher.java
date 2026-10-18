@@ -22,6 +22,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.android;
 
 import android.annotation.SuppressLint;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +31,7 @@ import android.os.Bundle;
 import android.view.ViewConfiguration;
 import android.window.OnBackInvokedCallback;
 import android.window.OnBackInvokedDispatcher;
+import android.widget.Toast;
 
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
@@ -56,6 +58,49 @@ public class AndroidLauncher extends AndroidApplication {
 	public static AndroidApplication instance;
 	
 	private static AndroidPlatformSupport support;
+	private static final int WIGO_PARENT_REQUEST = 7821;
+	private String pendingExternalUri;
+
+	// Authorization is single-use and deliberately not retained across recreation.
+	public void requestExternalUri(String uri) {
+		runOnUiThread(() -> {
+			if (isFinishing() || isDestroyed() || pendingExternalUri != null) return;
+			KeyguardManager keyguard = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+			boolean secure = keyguard != null && (Build.VERSION.SDK_INT >= 23
+					? keyguard.isDeviceSecure() : keyguard.isKeyguardSecure());
+			if (!secure) {
+				Toast.makeText(this, "Links externos bloqueados. Um responsável deve configurar o bloqueio seguro do Android.", Toast.LENGTH_LONG).show();
+				return;
+			}
+			Intent confirmation = keyguard.createConfirmDeviceCredentialIntent(
+					"Controle parental", "Responsável: confirme o PIN ou a senha do Android para abrir este link externo.");
+			if (confirmation == null) return;
+			pendingExternalUri = uri;
+			try {
+				startActivityForResult(confirmation, WIGO_PARENT_REQUEST);
+			} catch (RuntimeException unavailable) {
+				pendingExternalUri = null;
+				Toast.makeText(this, "Não foi possível verificar o responsável. O link permanece bloqueado.", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode != WIGO_PARENT_REQUEST) return;
+		String uri = pendingExternalUri;
+		pendingExternalUri = null;
+		if (resultCode == RESULT_OK && uri != null && !isFinishing()) {
+			try {
+				if (!Gdx.net.openURI(uri)) {
+					Toast.makeText(this, "Não foi possível abrir o link.", Toast.LENGTH_LONG).show();
+				}
+			} catch (RuntimeException unavailable) {
+				Toast.makeText(this, "Não foi possível abrir o link.", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
 	
 	@SuppressLint("SetTextI18n")
 	@Override

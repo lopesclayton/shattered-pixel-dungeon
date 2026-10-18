@@ -1,0 +1,34 @@
+Wigo Masmorras - Android candidate 4.0.2 (924)
+Independent adaptation by Wigo Tecnologia, not an official Shattered Pixel
+Dungeon release and not endorsed by the original authors.
+
+Corresponding modified source:
+https://github.com/lopesclayton/shattered-pixel-dungeon
+Upstream base: 57a4e06a4caf162446d1c28caa7983f0493fecf0
+License: GNU GPL v3 or later; see LICENSE.txt and retained source credits.
+Original authors and asset credits remain in the game and repository.
+
+Android application ID: com.wigotecnologia.game.pixeldungeon
+Build: JDK 21, Gradle wrapper 9.5.0, Android SDK 36, AGP 9.2.0.
+Command: gradlew.bat :android:bundleRelease
+Unsigned output: android/build/outputs/bundle/release/android-release.aab
+Use your own upload/signing key; Wigo private signing material is not included.
+
+Changes: Wigo title and application name, unrestricted privacy-policy link,
+single-use Android device-credential gate for other external links, upstream
+news/update checks disabled in release, upstream donation prompt disabled.
+No AdMob integration. Android dependency declarations moved to the top-level
+dependencies block to satisfy release lint without changing dependencies.
+
+Privacy policy:
+https://s3.sa-east-1.amazonaws.com/lupper.com.br/politica-privacidade-jogos.html
+Publisher contact: contato@lupper.com.br
+
+Validation on 2026-10-18:
+- :android:lintRelease and :android:bundleRelease succeeded (7 lint warnings).
+- :android:testDebugUnitTest reports NO-SOURCE: no unit-test coverage claimed.
+- Existing signed candidate startup on API34 passed; not a full gameplay test.
+
+NOT a published or store-approved release. Remaining work includes independent
+launcher/store branding, parental-gate runtime tests, gameplay/save validation,
+content rating based on actual fantasy combat, listing and Play declarations.
