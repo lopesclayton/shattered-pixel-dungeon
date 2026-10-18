@@ -1,4 +1,4 @@
-Wigo Masmorras - Android candidate 4.0.2 (924)
+Wigo Masmorras - Android candidate 4.0.2 (926)
 Independent adaptation by Wigo Tecnologia, not an official Shattered Pixel
 Dungeon release and not endorsed by the original authors.
 
@@ -17,6 +17,9 @@ Use your own upload/signing key; Wigo private signing material is not included.
 Changes: Wigo title and application name, unrestricted privacy-policy link,
 single-use Android device-credential gate for other external links, upstream
 news/update checks disabled in release, upstream donation prompt disabled.
+Credits now identify the independent Wigo adaptation and link to this modified
+source repository through the same parental-gated link handler. All original
+attributions are retained below the new block.
 No AdMob integration. Android dependency declarations moved to the top-level
 dependencies block to satisfy release lint without changing dependencies.
 
@@ -24,10 +27,17 @@ Privacy policy:
 https://s3.sa-east-1.amazonaws.com/lupper.com.br/politica-privacidade-jogos.html
 Publisher contact: contato@lupper.com.br
 
-Validation on 2026-10-18:
+Validation of candidate 924 on 2026-10-18 (926 runtime still pending):
 - :android:lintRelease and :android:bundleRelease succeeded (7 lint warnings).
 - :android:testDebugUnitTest reports NO-SOURCE: no unit-test coverage claimed.
 - Existing signed candidate startup on API34 passed; not a full gameplay test.
+
+Candidate 926 static credits check passed: original author names and URLs
+retained, Wigo source URL present, no direct external-opening bypass in credits.
+This does not validate rendered layout, accessibility or device authentication.
+Candidate 926 lintRelease and bundleRelease succeeded; signature and bundletool
+validation passed. Signed AAB SHA256:
+619153033B29DC0D8077C6F07CFA11369235F62717DA294931B63E824A9239D0
 
 NOT a published or store-approved release. Remaining work includes independent
 launcher/store branding, parental-gate runtime tests, gameplay/save validation,
