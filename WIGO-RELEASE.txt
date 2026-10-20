@@ -1,4 +1,4 @@
-Wigo Masmorras - Android candidate 4.0.2 (926)
+Wigo Masmorras - Android candidate 4.0.2 (927)
 Independent adaptation by Wigo Tecnologia, not an official Shattered Pixel
 Dungeon release and not endorsed by the original authors.
 
@@ -20,6 +20,9 @@ news/update checks disabled in release, upstream donation prompt disabled.
 Credits now identify the independent Wigo adaptation and link to this modified
 source repository through the same parental-gated link handler. All original
 attributions are retained below the new block.
+Candidate 927 adds an original blue portal/gold crystal Android launcher icon,
+including adaptive and monochrome layers. Original image files and attribution
+are retained; the manifest references the new Wigo icon. No gameplay change.
 No AdMob integration. Android dependency declarations moved to the top-level
 dependencies block to satisfy release lint without changing dependencies.
 
@@ -27,7 +30,7 @@ Privacy policy:
 https://s3.sa-east-1.amazonaws.com/lupper.com.br/politica-privacidade-jogos.html
 Publisher contact: contato@lupper.com.br
 
-Validation of candidate 924 on 2026-10-18 (926 runtime still pending):
+Historical validation of candidate 924 on 2026-10-18:
 - :android:lintRelease and :android:bundleRelease succeeded (7 lint warnings).
 - :android:testDebugUnitTest reports NO-SOURCE: no unit-test coverage claimed.
 - Existing signed candidate startup on API34 passed; not a full gameplay test.
@@ -39,6 +42,19 @@ Candidate 926 lintRelease and bundleRelease succeeded; signature and bundletool
 validation passed. Signed AAB SHA256:
 619153033B29DC0D8077C6F07CFA11369235F62717DA294931B63E824A9239D0
 
-NOT a published or store-approved release. Remaining work includes independent
-launcher/store branding, parental-gate runtime tests, gameplay/save validation,
-content rating based on actual fantasy combat, listing and Play declarations.
+Candidate 926 runtime on 2026-10-20 confirmed movement, saved-game restoration
+after process death, rendered credits and denial of an external source link
+without secure device lock. It did not prove positive credential authorization.
+Those runtime results are not a runtime test of candidate 927.
+
+Candidate 927 lintRelease and bundleRelease succeeded on 2026-10-20.
+Lint: 11 warnings, no errors (including 4 unused upstream icon resources).
+Strict signature and bundletool validation passed. Signed AAB SHA256:
+C7687EEE9368B2C77B21D121526CEB5398092D80BA1B3DDB9CD41D23116C6E5E
+The corresponding source for candidate 927 includes the new icon resources.
+Verify that the complete commit is available at the source URL above before
+distributing this candidate. Candidate 926 remains preserved locally.
+
+NOT a published or store-approved release. Remaining work includes launcher
+runtime/crop checks for 927, store banner/screenshots, positive parental-gate
+tests, content rating based on actual fantasy combat and Play declarations.

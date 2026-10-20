@@ -21,7 +21,8 @@
 		android:xlargeScreens="true"/>
 
 	<application
-		android:icon="@mipmap/ic_launcher"
+		android:icon="@mipmap/wigo_launcher"
+		android:roundIcon="@mipmap/wigo_launcher"
 		android:label="${appName}"
 		android:theme="@style/GameTheme"
 		android:appCategory="game"
